@@ -8,6 +8,7 @@ let confirmButton = ''
 let colorCode = []
 let checkButton = ''
 let colorDict = {'rgb(204, 0, 0)': 0, 'rgb(0, 204, 0)': 0, 'rgb(0, 0, 204)': 0, 'rgb(255, 255, 0)': 0, 'rgb(128, 128, 0)': 0, 'rgb(255, 128, 0)': 0, 'rgb(0, 0, 0)': 0, 'rgb(255, 255, 255)': 0}
+let guessCount = 0
 
 function initializeDifficultySelect() {
     colorTestField.innerHTML = '<textarea>How many buttons?</textarea><button id="buttonCount">Confirm</button>'
@@ -75,7 +76,7 @@ function generateColorCode(numberOfButtons) {
         colorCode.push(codeEntry)
     }
     //To simplify testing, uncomment console.log(colorCode)
-    // console.log(colorCode)
+    console.log(colorCode)
     // console.log(colorDict)
 }
 
@@ -103,6 +104,7 @@ function checkAnswers(colorCode, colorTestField) {
             if (buttonColor == colorCode[i]) {
                 correctPosition += 1
             }
+       
         }
     }
     // console.log(correctColors)
@@ -111,16 +113,35 @@ function checkAnswers(colorCode, colorTestField) {
     }
     // console.log(correctPosition, correctColor)
     alert(correctColor + ' were the right color, ' + correctPosition + ' were in the right position')
+    correctColors = {}
+    correctColor = 0
     if (correctPosition == numberOfButtons) {
-        endGame()
+        winState = 'win'
+        endGame(winState)
+    }
+    else {
+        guessCount += 1
+        if (guessCount == 10) {
+            winState = 'lose'
+            endGame(winState)
+        }
     }
 }
 
-function endGame() {
-    alert('You win!')
+function endGame(winState) {
+    if (winState == 'win'){
+        alert('You Win!')
+    }
+    else {
+        alert('You Lose!')
+    }
     colorTestField.innerHTML = ''
     startBtn.innerHTML = '<button>Start</button>'
     colorCode = []
+    guessCount = 0
+    for (let key in colorDict) {
+        colorDict[key] = 0
+    }
 }
 
 //Event Listeners
