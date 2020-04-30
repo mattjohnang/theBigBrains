@@ -74,26 +74,28 @@ function generateColorCode(numberOfButtons) {
         colorDict[codeEntry] += 1
         colorCode.push(codeEntry)
     }
-    console.log(colorCode)
-    console.log(colorDict)
+    //To simplify testing, uncomment console.log(colorCode)
+    // console.log(colorCode)
+    // console.log(colorDict)
 }
 
 function checkAnswers(colorCode, colorTestField) {
     let correctColors = {}
     let correctPosition = 0
     let correctColor = 0
-    console.log(colorTestField, colorCode)
-    console.log(document.querySelectorAll('.button'))
+    // console.log(colorTestField, colorCode)
+    // console.log(document.querySelectorAll('.button'))
     buttonList = document.querySelectorAll('.button')
     for (let i = 0; i < buttonList.length; i++) {
-        console.log(buttonList[i])
+        // console.log(buttonList[i])
         buttonColor = buttonList[i].style.backgroundColor
-        console.log(buttonColor)
-        console.log(colorCode.indexOf(buttonColor) != -1)
-        console.log(buttonColor == colorCode[i])
+        // console.log(buttonColor)
+        // console.log(colorCode.indexOf(buttonColor) != -1)
+        // console.log(buttonColor == colorCode[i])
         if (colorCode.indexOf(buttonColor) != -1) {
             if (buttonColor in correctColors) {
-                correctColors[buttonColor] += 1
+                if (correctColors[buttonColor] < colorDict[buttonColor]){
+                correctColors[buttonColor] += 1}
             }
             else {
             correctColors[buttonColor] = 1
@@ -103,12 +105,22 @@ function checkAnswers(colorCode, colorTestField) {
             }
         }
     }
-    console.log(correctColors)
+    // console.log(correctColors)
     for (let key in correctColors) {
         correctColor += correctColors[key]
     }
-    console.log(correctPosition, correctColor)
+    // console.log(correctPosition, correctColor)
     alert(correctColor + ' were the right color, ' + correctPosition + ' were in the right position')
+    if (correctPosition == numberOfButtons) {
+        endGame()
+    }
+}
+
+function endGame() {
+    alert('You win!')
+    colorTestField.innerHTML = ''
+    startBtn.innerHTML = '<button>Start</button>'
+    colorCode = []
 }
 
 //Event Listeners
@@ -128,6 +140,6 @@ startBtn.addEventListener('click', () => {
     confirmButton.addEventListener('click', () => {
         getNumberOfButtons()
     })
-    startBtn.outerHTML = ''
+    startBtn.innerHTML = ''
 })
 
