@@ -10,7 +10,12 @@ exports.Register = async function(req, res) {
 };
 
 exports.RegisterUser  = async function(req, res){
-   
+        const validate = (email) => {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    };
+    
+    var mail            = req.body.email
     var password        = req.body.password;
     var passwordConfirm = req.body.passwordConfirm;
 
