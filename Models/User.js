@@ -12,12 +12,15 @@ var userSchema = mongoose.Schema({
   },
   email: {
     type: String
-  },
-  firstName: {
-    type: String
-  },
-  lastName: {
-      type: String
+  // },
+  // score: {
+  //   type: Number
+  // },
+  // firstName:{
+  //     type:String
+  // },
+  // lastName: {
+  //     type: String
   }
 });
 userSchema.plugin(passportLocalMongoose);
