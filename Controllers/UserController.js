@@ -14,12 +14,23 @@ exports.RegisterUser  = async function(req, res){
         var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
     };
+        
+    const passValidate = (pass) => {
+        if (pass.length >= 6){
+            var re = /[A-Z]/;
+            return re.test(pass)
+        }
+        else{
+            return false
+        }
+            
+    };
     
     var mail            = req.body.email
     var password        = req.body.password;
     var passwordConfirm = req.body.passwordConfirm;
 
-    if (password == passwordConfirm) {
+    if (password == passwordConfirm) && (validate(mail)) && (passValidate(password))) {
 
         var newUser = new User({
             firstName:    req.body.firstName,
