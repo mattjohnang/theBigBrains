@@ -3,6 +3,11 @@ const UserRepo = require('../Data/UserRepo')
 const _userRepo = new UserRepo();
 var   passport       = require('passport');
 const RequestService = require('../Services/RequestService');
+// var validator = require("email-validator")
+
+
+
+
 
 exports.Register = async function(req, res) {
     let reqInfo = RequestService.reqHelper(req);
@@ -10,11 +15,11 @@ exports.Register = async function(req, res) {
 };
 
 exports.RegisterUser  = async function(req, res){
-        const validate = (email) => {
+    const validate = (email) => {
         var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
     };
-        
+
     const passValidate = (pass) => {
         if (pass.length >= 6){
             var re = /[A-Z]/;
@@ -25,16 +30,16 @@ exports.RegisterUser  = async function(req, res){
         }
             
     };
-    
+
     var mail            = req.body.email
     var password        = req.body.password;
     var passwordConfirm = req.body.passwordConfirm;
+    
 
-    if (password == passwordConfirm) && (validate(mail)) && (passValidate(password))) {
+    if ((password == passwordConfirm) && (validate(mail)) && (passValidate(password))) {
 
         var newUser = new User({
-            firstName:    req.body.firstName,
-            lastName:     req.body.lastName,
+
             email:        req.body.email,
             username:     req.body.username,
         });
