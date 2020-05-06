@@ -1,0 +1,16 @@
+{
+  "name": "hometest",
+  "version": "1.0.0",
+  "description": "A test version of the game code",
+  "main": "colours.js",
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.1.2"
+  },
+  "scripts": {
+    "test": "mocha || true"
+  },
+  "author": "",
+  "license": "ISC"
+}
