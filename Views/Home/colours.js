@@ -17,6 +17,14 @@ let difficultyList = []
 let guessPerWin = []
 let localStorageTest = 1
 const statsMenu = document.querySelector('#statsMenu')
+let totalDifficulty = 0
+let totalGuess = 0
+let winRate = 0
+let avgDifficulty = 0
+let avgGuess = 0
+window.localStorage["winRate"] = winRate
+window.localStorage["avgDifficulty"] = avgDifficulty
+window.localStorage["avgGuess"] = avgGuess
 console.log(window.localStorage)
 
 
@@ -158,6 +166,7 @@ function endGame(winState) {
     for (let key in colorDict) {
         colorDict[key] = 0
     }
+    calcStats(winCount, loseCount, difficultyList, guessPerWin)
 }
 
 
@@ -165,9 +174,8 @@ function testMocha() {
     return 'Hello'
 }
 
-function showStats(winCount, loseCount, difficultyList, guessPerWin) {
-    let totalDifficulty = 0
-    let totalGuess = 0
+function calcStats(winCount, loseCount, difficultyList, guessPerWin) {
+
     if (winCount + loseCount == 0){
         winRate = 0
     }
@@ -195,6 +203,13 @@ function showStats(winCount, loseCount, difficultyList, guessPerWin) {
     console.log(winRate)
     console.log(difficultyList)
     console.log(guessPerWin)
+    window.localStorage["winRate"] = winRate
+    window.localStorage["avgDifficulty"] = avgDifficulty
+    window.localStorage["avgGuess"] = avgGuess
+}
+
+function showStats(winRate, avgDifficulty, avgGuess) {
+    
     statsMenu.innerHTML = `Win Rate: ${winRate}%<br> Average Difficulty: ${avgDifficulty}<br> Average Guesses/Win: ${avgGuess}`
     hideBtn = document.querySelector('#btn-hidestats')
     hideBtn.innerHTML = '<button>Hide Stats</button>'
@@ -231,10 +246,10 @@ startBtn.addEventListener('click', () => {
 })
 
 getStatsBtn.addEventListener('click', () => {
-    showStats(winCount, loseCount, difficultyList, guessPerWin)
+    showStats(winRate, avgDifficulty, avgGuess)
     
 
 })
 
-
+// calcStats(winCount, loseCount, difficultyList, guessPerWin)
 

@@ -27,7 +27,7 @@ button {
     color: black;
 }
 
-#btn-getstats {
+#btn-getstats, #statsWebPage {
   width: 100px;
   border: none;
   margin: 10px 0px;
