@@ -1,0 +1,13 @@
+.numberofturns{
+    width: 50%;
+    display: inline-block;
+    text-align: right;  
+  }
+
+.difficulty{
+    display: inline-block;  
+}
+
+.winrate{
+    display: inline-block;
+}
