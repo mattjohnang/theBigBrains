@@ -1,5 +1,3 @@
-// let jsdom = require('jsdom-global');
-// global.document = jsdom();
 const colorList = ['rgb(204, 0, 0)', 'rgb(0, 204, 0)', 'rgb(0, 0, 204)', 'rgb(255, 255, 0)', 'rgb(128, 128, 0)', 'rgb(255, 128, 0)', 'rgb(0, 0, 0)', 'rgb(255, 255, 255)']
 const colorTestField = document.querySelector('#colorButtonField')
 const colorButtonField = document.querySelector('#colorButtonField > ul')
@@ -15,18 +13,12 @@ let winCount = 0
 let loseCount = 0
 let difficultyList = []
 let guessPerWin = []
-let localStorageTest = 1
 const statsMenu = document.querySelector('#statsMenu')
 let totalDifficulty = 0
 let totalGuess = 0
 let winRate = 0
 let avgDifficulty = 0
 let avgGuess = 0
-// window.localStorage["winRate"] = winRate
-// window.localStorage["avgDifficulty"] = avgDifficulty
-// window.localStorage["avgGuess"] = avgGuess
-// console.log(window.localStorage)
-console.log(colorTestField)
 
 
 function initializeDifficultySelect() {
@@ -36,14 +28,13 @@ function initializeDifficultySelect() {
 }
 
 function getNumberOfButtons() {
-    // console.log(document.querySelector('textarea').value)
     userInput = document.querySelector('textarea').value
     if (isNaN(userInput)) {
-        // alert("invalid parameter, please input a number")
+        alert("invalid parameter, please input a number")
     }
     else {
         if (userInput < 4 || userInput > 8) {
-            // alert('please input a number between 4 and 8')
+            alert('please input a number between 4 and 8')
         }
         else {
         numberOfButtons = userInput
@@ -75,10 +66,7 @@ function createButtons(numberOfButtons) {
 
 function colorShift(buttonToChange) {
     buttonInUse = document.querySelector(`#${buttonToChange}`)
-    // console.log(colorList.indexOf(buttonInUse.style.backgroundColor))
-    // console.log(buttonInUse.style.backgroundColor)
     oldColor = colorList.indexOf(buttonInUse.style.backgroundColor)
-    // console.log(colorList.length)
     if (oldColor + 1 >= colorList.length) {
         buttonInUse.style.backgroundColor = colorList[0]
     }
@@ -91,28 +79,20 @@ function generateColorCode(numberOfButtons) {
     for (let i = 0; i < numberOfButtons; i++) {
         codeNumber = Math.floor(Math.random()*8)
         codeEntry = colorList[codeNumber]
-        // console.log(codeEntry)
         colorDict[codeEntry] += 1
         colorCode.push(codeEntry)
     }
     //To simplify testing, uncomment console.log(colorCode)
-    console.log(colorCode)
-    // console.log(colorDict)
+    // console.log(colorCode)
 }
 
 function checkAnswers(colorCode, colorTestField) {
     let correctColors = {}
     let correctPosition = 0
     let correctColor = 0
-    // console.log(colorTestField, colorCode)
-    // console.log(document.querySelectorAll('.button'))
     buttonList = document.querySelectorAll('.button')
     for (let i = 0; i < buttonList.length; i++) {
-        // console.log(buttonList[i])
         buttonColor = buttonList[i].style.backgroundColor
-        // console.log(buttonColor)
-        // console.log(colorCode.indexOf(buttonColor) != -1)
-        // console.log(buttonColor == colorCode[i])
         if (colorCode.indexOf(buttonColor) != -1) {
             if (buttonColor in correctColors) {
                 if (correctColors[buttonColor] < colorDict[buttonColor]){
@@ -127,11 +107,9 @@ function checkAnswers(colorCode, colorTestField) {
        
         }
     }
-    // console.log(correctColors)
     for (let key in correctColors) {
         correctColor += correctColors[key]
     }
-    // console.log(correctPosition, correctColor)
     alert(correctColor + ' were the right color, ' + correctPosition + ' were in the right position')
     correctColors = {}
     correctColor = 0
@@ -186,7 +164,8 @@ function testMocha() {
 }
 
 function calcStats(winCount, loseCount, difficultyList, guessPerWin) {
-
+    totalDifficulty = 0
+    totalGuess = 0
     if (winCount + loseCount == 0){
         winRate = 0
     }
@@ -211,12 +190,8 @@ function calcStats(winCount, loseCount, difficultyList, guessPerWin) {
     else {
         avgGuess = 0
     }
-    console.log(winRate)
-    console.log(difficultyList)
-    console.log(guessPerWin)
-    // window.localStorage["winRate"] = winRate
-    // window.localStorage["avgDifficulty"] = avgDifficulty
-    // window.localStorage["avgGuess"] = avgGuess
+    stats = `[${winRate}, ${avgDifficulty}, ${avgGuess}]`
+    return stats
 }
 
 function showStats(winRate, avgDifficulty, avgGuess) {
@@ -236,34 +211,6 @@ function hideStats() {
     hideBtn.innerHTML = ''
 }
 
-//Event Listeners
-// colorTestField.addEventListener('click', (e) => {
-//     // console.log(e.target)
-//     // console.log(e.target.className)
-//     if (e.target.className == 'button'){
-//     buttonToChange = e.target.id
-//     // console.log(buttonToChange)
-//     colorShift(buttonToChange)
-//     }
-// })
-
-
-// startBtn.addEventListener('click', () => {
-//     confirmButton = initializeDifficultySelect()
-//     confirmButton.addEventListener('click', () => {
-//         getNumberOfButtons()
-//     })
-//     startBtn.innerHTML = ''
-// })
-
-// getStatsBtn.addEventListener('click', () => {
-//     showStats(winRate, avgDifficulty, avgGuess)
-    
-
-// })
-
-// calcStats(winCount, loseCount, difficultyList, guessPerWin)
-
 module.exports = {
     
 
@@ -278,14 +225,13 @@ module.exports = {
     },
     
     getNumberOfButtons: function() {
-        // console.log(document.querySelector('textarea').value)
         userInput = document.querySelector('textarea').value
         if (isNaN(userInput)) {
-            // alert("invalid parameter, please input a number")
+            return undefined
         }
         else {
             if (userInput < 4 || userInput > 8) {
-                // alert('please input a number between 4 and 8')
+                return undefined
             }
             else {
             numberOfButtons = userInput
@@ -320,10 +266,7 @@ module.exports = {
     colorShift:function (buttonToChange) {
         buttonInUse = document.querySelector(`#${buttonToChange}`)
         console.log(buttonInUse)
-        // console.log(colorList.indexOf(buttonInUse.style.backgroundColor))
-        // console.log(buttonInUse.style.backgroundColor)
         oldColor = colorList.indexOf(buttonInUse.style.backgroundColor)
-        // console.log(colorList.length)
         if (oldColor + 1 >= colorList.length) {
             buttonInUse.style.backgroundColor = colorList[0]
         }
@@ -334,9 +277,7 @@ module.exports = {
     },
     
     generateColorCode:function (numberOfButtons) {
-        // const colorList = ['rgb(204, 0, 0)', 'rgb(0, 204, 0)', 'rgb(0, 0, 204)', 'rgb(255, 255, 0)', 'rgb(128, 128, 0)', 'rgb(255, 128, 0)', 'rgb(0, 0, 0)', 'rgb(255, 255, 255)']
-        // let colorCode = []
-        // let colorDict = {'rgb(204, 0, 0)': 0, 'rgb(0, 204, 0)': 0, 'rgb(0, 0, 204)': 0, 'rgb(255, 255, 0)': 0, 'rgb(128, 128, 0)': 0, 'rgb(255, 128, 0)': 0, 'rgb(0, 0, 0)': 0, 'rgb(255, 255, 255)': 0}
+
         for (let i = 0; i < numberOfButtons; i++) {
             codeNumber = Math.floor(Math.random()*8)
             codeEntry = colorList[codeNumber]
@@ -346,7 +287,6 @@ module.exports = {
         }
         //To simplify testing, uncomment console.log(colorCode)
         // console.log(colorCode)
-        // console.log(colorDict)
         return colorCode
     },
     
@@ -354,15 +294,10 @@ module.exports = {
         let correctColors = {}
         let correctPosition = 0
         let correctColor = 0
-        // console.log(colorTestField, colorCode)
-        // console.log(document.querySelectorAll('.button'))
         buttonList = document.querySelectorAll('.button')
         for (let i = 0; i < buttonList.length; i++) {
             // console.log(buttonList[i])
             buttonColor = buttonList[i].style.backgroundColor
-            // console.log(buttonColor)
-            // console.log(colorCode.indexOf(buttonColor) != -1)
-            // console.log(buttonColor == colorCode[i])
             if (colorCode.indexOf(buttonColor) != -1) {
                 if (buttonColor in correctColors) {
                     if (correctColors[buttonColor] < colorDict[buttonColor]){
@@ -377,12 +312,9 @@ module.exports = {
            
             }
         }
-        // console.log(correctColors)
         for (let key in correctColors) {
             correctColor += correctColors[key]
         }
-        // console.log(correctPosition, correctColor)
-        // alert(correctColor + ' were the right color, ' + correctPosition + ' were in the right position')
         correctColors = {}
         correctColor = 0
         guessCount += 1
@@ -403,12 +335,10 @@ module.exports = {
     
     endGame:function (winState) {
         if (winState == true){
-            // alert('You Win!')
             winCount += 1
             guessPerWin.push(guessCount)
         }
         else {
-            // alert('You Lose!')
             loseCount += 1
         }
         colorTestField.innerHTML = ''
@@ -418,7 +348,39 @@ module.exports = {
         for (let key in colorDict) {
             colorDict[key] = 0
         }
+        calcStats(winCount, loseCount, difficultyList, guessPerWin)
         return winState
-        // calcStats(winCount, loseCount, difficultyList, guessPerWin)
+        
+    },
+
+    calcStats:function(winCount, loseCount, difficultyList, guessPerWin) {
+        totalDifficulty = 0
+        totalGuess = 0
+        if (winCount + loseCount == 0){
+            winRate = 0
+        }
+        else {
+            winRate = Math.floor((winCount / (winCount + loseCount))*100)
+        }
+        if (difficultyList.length > 0 ){
+        for (let i in difficultyList) {
+            totalDifficulty += parseInt(difficultyList[i])
+        }
+        avgDifficulty = Math.floor(totalDifficulty / difficultyList.length)
+        }
+        else {
+            avgDifficulty = 0
+        }
+        if (guessPerWin.length > 0){
+        for (let i in guessPerWin) {
+            totalGuess += guessPerWin[i]
+        }
+        avgGuess = Math.floor(totalGuess / guessPerWin.length)
+        }
+        else {
+            avgGuess = 0
+        }
+        stats = `[${winRate}, ${avgDifficulty}, ${avgGuess}]`
+        return stats
     }
 }
