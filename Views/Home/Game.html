@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>Mastermind Game</title>
+</head>
+<body>
+    <div id='outputField'></div>
+    <div id='colorChangeTest'>
+        <ul id='colorButtonField'>
+
+        </ul>
+    </div>
+    <div id="btn-start">
+        <button type="button">Start</button>
+    </div>
+
+</body>
+    <footer>
+        <button id="btn-getstats">Get Stats</button>
+        <!-- <a href="statspage.html"><button id="statsWebPage">Get Stats (webpage)</button></a> -->
+
+        <div id="statsMenu">
+
+        </div>
+        
+        <div id="btn-hidestats"></div>
+    </footer>
+    <script src= "colours.js" >
+        
+    </script>
+    <script>
+        window.localStorage["winRate"] = winRate
+        window.localStorage["avgDifficulty"] = avgDifficulty
+        window.localStorage["avgGuess"] = avgGuess
+        colorTestField.addEventListener('click', (e) => {
+    // console.log(e.target)
+    // console.log(e.target.className)
+    if (e.target.className == 'button'){
+    buttonToChange = e.target.id
+    // console.log(buttonToChange)
+    colorShift(buttonToChange)
+    
+    }
+})
+
+
+startBtn.addEventListener('click', () => {
+    confirmButton = initializeDifficultySelect()
+    confirmButton.addEventListener('click', () => {
+        getNumberOfButtons()
+    })
+    startBtn.innerHTML = ''
+})
+
+getStatsBtn.addEventListener('click', () => {
+    showStats(winRate, avgDifficulty, avgGuess)
+    })
+
+
+    </script>
+    <!-- <script src="test/apptest.js"></script> -->
+</html>
