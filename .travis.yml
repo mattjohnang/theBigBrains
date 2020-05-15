@@ -8,6 +8,8 @@ before_script:
 - npm install chai-http
 - npm install jsdom-global
 - npm install jsdom
+- npm install istanbul
+- npm install coveralls
 
 services:
 - mongodb
