@@ -19,13 +19,36 @@ button {
     margin-left: 100px;
   }
 
-  #colorChangeTest button {
+  #colorChangeTest button, #outputField button {
     border-radius: 20px;
-    display: inline;
+    display: inline-block;
     padding: 20px;
     margin: 5px;
     color: black;
 }
+
+
+.rightPosition {
+  background-color: red;
+}
+
+.rightColor {
+  background-color: white;
+}
+
+.wrong {
+  background-color: black;
+}
+
+#colorChangeTest ul, #outputField ul {
+  background-color: #ffa237;
+  margin-right:50%;
+}
+
+#outputField ul{
+  margin-bottom:-20px;
+}
+
 
 #btn-getstats, #statsWebPage {
   width: 100px;
