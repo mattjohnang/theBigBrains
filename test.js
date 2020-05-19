@@ -11,16 +11,16 @@ chai.should();
 describe("Home", () => {
 
     describe("functions in HomeController", () => {
-        it("Index", (done) =>{ 
-            chai.request(app)
-            .get('/')
-            .end((err,res) =>{
-                res.should.have.status(200);
+        // it("Index", (done) =>{ 
+        //     chai.request(app)
+        //     .get('/')
+        //     .end((err,res) =>{
+        //         res.should.have.status(200);
                 
 
-                done();
-            });
-        });
+        //         done();
+        //     });
+        // });
 
         it("Game", (done) =>{ 
             chai.request(app)
@@ -58,29 +58,29 @@ describe("Users", () => {
 
         });
 
-        it("RegisterUser", (done)=> {
-            chai.request(app)
-            .post(`/User/RegisterUser`)
-            .send({'username': 'bob', 'email': 'emia@wer.com', 'password': 'asdfasdfDdff'})
-            .end((err, res) => {
-                // console.log("Showing output.")
-                console.log(JSON.stringify(res.body));
+        // it("RegisterUser", (done)=> {
+        //     chai.request(app)
+        //     .post(`/User/RegisterUser`)
+        //     .send({'username': 'bob', 'email': 'emia@wer.com', 'password': 'asdfasdfDdff'})
+        //     .end((err, res) => {
+        //         // console.log("Showing output.")
+        //         console.log(JSON.stringify(res.body));
 
-                let username = res.body.INFO.username;
-                let email    = res.body.INFO.email;
+        //         let username = res.body.INFO.username;
+        //         let email    = res.body.INFO.email;
 
-                username.should.equal('bob');
-                email.should.equal('emia@wer.com');
-                res.body.should.be.a('object')
-                res.should.have.status(200);
-                // console.log(err, "THIS IS ERROR")
+        //         username.should.equal('bob');
+        //         email.should.equal('emia@wer.com');
+        //         res.body.should.be.a('object')
+        //         res.should.have.status(200);
+        //         // console.log(err, "THIS IS ERROR")
 
 
 
-                done();
-            });
+        //         done();
+        //     });
 
-        });
+        // });
 
         it("test secure area username is shown", (done) => {
             chai.request(app)
@@ -114,28 +114,28 @@ describe("Users", () => {
         });
 
 
-        it("login a user", (done)=> {
-            chai.request(app)
-            .post(`/User/LoginUser`)
-            .send({'username': 'user', 'password':'Password' })
-            .end((err, res) => {
-                // console.log(JSON.stringify(res.body))
-                let username = res.body.login.username;
-                let password    = res.body.login.password;
-                // console.log(username, password)
-                username.should.equal('user');
-                password.should.equal('Password')
-                res.body.should.be.a('object')
+        // it("login a user", (done)=> {
+        //     chai.request(app)
+        //     .post(`/User/LoginUser`)
+        //     .send({'username': 'user', 'password':'Password' })
+        //     .end((err, res) => {
+        //         // console.log(JSON.stringify(res.body))
+        //         let username = res.body.login.username;
+        //         let password    = res.body.login.password;
+        //         // console.log(username, password)
+        //         username.should.equal('user');
+        //         password.should.equal('Password')
+        //         res.body.should.be.a('object')
 
 
-                res.should.have.status(200);
+        //         res.should.have.status(200);
 
                 
-                done();
-            });
+        //         done();
+        //     });
             
 
-        });
+        // });
 
         it("Logout", (done) => {
             chai.request(app)
@@ -161,7 +161,6 @@ describe("Users", () => {
 
 
 
-
 const assert = require('chai').assert
 require('jsdom-global')()
 require('jsdom')
@@ -176,6 +175,7 @@ const dom = new JSDOM(`<!DOCTYPE html>
     <title>Mastermind Game</title>
 </head>
 <body>
+<div id='outputField'></div>
     <div id='colorChangeTest'>
         <ul id='colorButtonField'>
 
@@ -253,7 +253,8 @@ const createCheckButton = require('./Views/Home/colours.js').createCheckButton
 const createButtons = require('./Views/Home/colours.js').createButtons
 const initializeDifficultySelect = require('./Views/Home/colours.js').initializeDifficultySelect
 const calcStats = require('./Views/Home/colours.js').calcStats
-
+const printInput = require('./Views/Home/colours.js').printInput
+const generateProgressSymbols = require('./Views/Home/colours.js').generateProgressSymbols
 
 
 describe('Colours', function(){
@@ -269,7 +270,10 @@ describe('Colours', function(){
         assert.isBoolean(endGame(true))
     })
     it('app should return a true boolean', function() {
+        guessCount = 0
         colorTestField.innerHTML += '<button class="button" id="button1" style="background-color: rgb(204, 0, 0);"></button><button class="button" id="button2" style="background-color: rgb(204, 0, 0);"></button><button class="button" id="button3" style="background-color: rgb(204, 0, 0);"></button><button class="button" id="button4" style="background-color: rgb(204, 0, 0);"></button><button id="check">Check Answer</button>'
+        printInput(colorTestField)
+        generateProgressSymbols(4, 4)
         assert.equal(checkAnswers(['rgb(204, 0, 0)', 'rgb(204, 0, 0)', 'rgb(204, 0, 0)', 'rgb(204, 0, 0)'], colorTestField, 4), true)
     })
     it('app should return a false boolean', function() {
@@ -291,5 +295,10 @@ describe('Colours', function(){
     it('app should return an array containing numbers', function() {
         assert.equal(calcStats(1, 1, [4, 8], [2, 4]), `[50, 6, 3]`)
     })
-
-});
+    it('app should return a string containing the button input', function() {
+        assert.isString(printInput())
+    })
+    it('app should return a string containing buttons', function() {
+        assert.isString(generateProgressSymbols(4, 4))
+    })
+})
