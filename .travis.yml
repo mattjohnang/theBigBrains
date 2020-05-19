@@ -3,13 +3,10 @@ node_js:
 - "stable"
 
 before_script:
-- npm install
 - npm install chai
 - npm install chai-http
 - npm install jsdom-global
 - npm install jsdom
-- npm install istanbul
-- npm install coveralls
 
 services:
 - mongodb
