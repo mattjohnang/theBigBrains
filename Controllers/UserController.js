@@ -14,9 +14,6 @@ exports.Register = async function(req, res) {
 exports.RegisterUser  = async function(req, res){
     let reqInfo = RequestService.reqHelper(req);
 
-    // res.json({INFO: req.body})
-    // res.json({username:req.body.username, email:req.body.email})
-
     const emailValidate = (email) => {
         var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
@@ -37,8 +34,6 @@ exports.RegisterUser  = async function(req, res){
     var password        = req.body.password;
     var passwordConfirm = req.body.passwordConfirm;
     var username        = req.body.username;
-    
-
 
 
     if ((password == passwordConfirm) && (emailValidate(mail)) && (passValidate(password))) {
@@ -52,14 +47,10 @@ exports.RegisterUser  = async function(req, res){
         // res.json({INFO:req.body})
 
 
-
         User.register(new User(newUser), req.body.password, 
                 function(err, account) {
                     if (err) {
-                        let reqInfo = RequestService.reqHelper(req);
-
-                        // res.json({user:username, user:email})   
-         
+                        let reqInfo = RequestService.reqHelper(req);         
 
                         return res.render('User/Register', 
                         { user : newUser, errorMessage: err, 
@@ -77,7 +68,6 @@ exports.RegisterUser  = async function(req, res){
               errorMessage: "Something went wrong. Please check your password and email.", 
               reqInfo:reqInfo})
               
-
     }
 };
 
@@ -112,14 +102,9 @@ exports.Logout = (req, res) => {
 exports.SecureArea  = async function(req, res) {
     let reqInfo = RequestService.reqHelper(req);
 
-
     if(reqInfo.authenticated) {
-        // res.json({reqInfo:req.body})
-
-        // res.json({reqInfo:reqInfo})
 
         res.render('User/SecureArea', {errorMessage:"", reqInfo:reqInfo})
-        // res.json({reqInfo:reqInfo.username})
     }
     else {
         res.redirect('/User/Login?errorMessage=You ' + 
