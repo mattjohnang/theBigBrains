@@ -113,6 +113,8 @@ function generateColorCode(numberOfButtons) {
 }
 
 function checkAnswers(colorCode, colorTestField) {
+    correctColor = 0
+    correctPosition = 0
     let correctColors = {}
     console.log(correctColor, correctPosition)
     buttonList = colorTestField.querySelectorAll('.button')
@@ -136,11 +138,11 @@ function checkAnswers(colorCode, colorTestField) {
         correctColor += correctColors[key]
     }
     
-
-    guessCount += 1
     printInput(colorTestField)
     console.log(correctColor, correctPosition)
     generateProgressSymbols(correctColor, correctPosition)
+    guessCount += 1
+    
     if (correctPosition == numberOfButtons) {
         winState = true
         endGame(winState)
@@ -206,13 +208,16 @@ function endGame(winState) {
     }
     colorTestField.innerHTML = ''
     outputField.innerHTML = ''
+
     startBtn.innerHTML = '<button>Start</button>'
+    
     colorCode = []
     guessCount = 0
     for (let key in colorDict) {
         colorDict[key] = 0
     }
     calcStats(winCount, loseCount, difficultyList, guessPerWin)
+    progressSymbols.innerHTML = ''
 }
 
 
@@ -325,7 +330,7 @@ module.exports = {
     },
     
     colorShift:function (buttonToChange) {
-        buttonInUse = document.querySelector(`#${buttonToChange}`)
+        buttonInUse = colorTestField.querySelector(`#${buttonToChange}`)
         // console.log(buttonInUse)
         oldColor = colorList.indexOf(buttonInUse.style.backgroundColor)
         if (oldColor + 1 >= colorList.length) {
@@ -355,6 +360,7 @@ module.exports = {
         let correctColors = {}
         let correctPosition = 0
         let correctColor = 0
+        outputField = document.querySelector('#outputField')
         buttonList = document.querySelectorAll('.button')
         for (let i = 0; i < buttonList.length; i++) {
             // console.log(buttonList[i])
@@ -443,5 +449,52 @@ module.exports = {
         }
         stats = `[${winRate}, ${avgDifficulty}, ${avgGuess}]`
         return stats
+    },
+    
+    printInput: function(colorTestField) {
+        colorTestField = document.querySelector('#colorButtonField')
+        const outputField = document.querySelector('#outputField')
+        buttons = colorTestField.querySelectorAll('.button')
+        outputField.innerHTML += `<ul id='output${guessCount}'></ul>`
+        outputEntry = outputField.querySelector(`#output${guessCount}`)
+        // console.log(buttons)
+        
+        for (let i in buttons) {
+            // console.log(buttons[i].outerHTML)
+            // console.log(typeof buttons[i].outerHTML)
+            if (buttons[i].outerHTML != undefined){
+            outputEntry.innerHTML += buttons[i].outerHTML
+            }
+            
+        }
+        // console.log(outputField.innerHTML)
+        
+        return outputField.innerHTML
+    },
+
+    generateProgressSymbols: function(correctColor, correctPosition) {
+        onlyCorrectColor = 0
+        wrongAnswers = 0
+        outputEntry = document.querySelector(`#output${guessCount}`)
+        outputEntry.innerHTML += `<div id="progressSymbols${guessCount}"><div>`
+        progressSymbols = document.querySelector(`#progressSymbols${guessCount}`)
+        progressSymbols.style.display = "inline-block"
+        progressSymbols.style.borderLeft = "solid 5px black"
+        onlyCorrectColor = correctColor - correctPosition
+        wrongAnswers = numberOfButtons - correctColor
+        console.log(correctPosition, onlyCorrectColor, wrongAnswers)
+        for (let i = 0; i < correctPosition; i++){
+            progressSymbols.innerHTML += `<button class="rightPosition"></button>`
+        }
+        
+        for (let i = 0; i < correctColor - correctPosition; i++){
+            progressSymbols.innerHTML += `<button class="rightColor"></button>`
+        }
+        
+        for (let i = 0; i < numberOfButtons - correctColor; i++){
+            progressSymbols.innerHTML += `<button class="wrong"></button>`
+        }
+        return progressSymbols.innerHTML
+        
     }
 }
