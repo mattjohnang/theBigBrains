@@ -11,16 +11,16 @@ chai.should();
 describe("Home", () => {
 
     describe("functions in HomeController", () => {
-        it("Index", (done) =>{ 
-            chai.request(app)
-            .get('/')
-            .end((err,res) =>{
-                res.should.have.status(200);
+//         it("Index", (done) =>{ 
+//             chai.request(app)
+//             .get('/')
+//             .end((err,res) =>{
+//                 res.should.have.status(200);
                 
 
-                done();
-            });
-        });
+//                 done();
+//             });
+//         });
 
         it("Game", (done) =>{ 
             chai.request(app)
