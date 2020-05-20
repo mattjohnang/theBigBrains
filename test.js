@@ -137,19 +137,17 @@ describe("Users", () => {
 
         // });
 
-        it("Logout", (done) => {
-            chai.request(app)
-            .get(`/User/Logout.ejs`)
-            .end((err, res) => {
-                res.should.have.status(200);
+//         it("Logout", (done) => {
+//             chai.request(app)
+//             .get(`/User/Logout.ejs`)
+//             .end((err, res) => {
+//                 res.should.have.status(200);
 
-                done();
+//                 done();
 
-            });
+//             });
 
-
-
-        });
+//         });
 
 
 
