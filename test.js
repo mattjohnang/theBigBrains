@@ -45,7 +45,7 @@ describe("Users", () => {
 
         it("Register.ejs", (done) => {
             chai.request(app)
-            .get(`/User/Register`)
+            .get(`/User/Register.ejs`)
             .end((err, res) => {
                 res.should.have.status(200);
                 // console.log(res.body)
@@ -160,7 +160,6 @@ describe("Users", () => {
 });
 
 
-
 const assert = require('chai').assert
 require('jsdom-global')()
 require('jsdom')
@@ -178,16 +177,20 @@ const dom = new JSDOM(`<!DOCTYPE html>
 <div id='outputField'></div>
     <div id='colorChangeTest'>
         <ul id='colorButtonField'>
+
         </ul>
     </div>
     <div id="btn-start">
         <button type="button">Start</button>
     </div>
+
 </body>
     <footer>
         <button id="btn-getstats">Get Stats</button>
         <a href="statspage.html"><button id="statsWebPage">Get Stats (webpage)</button></a>
+
         <div id="statsMenu">
+
         </div>
         
         <div id="btn-hidestats"></div>
@@ -208,6 +211,8 @@ window.localStorage["avgGuess"] = avgGuess
     colorShift(buttonToChange)
     }
 })
+
+
 startBtn.addEventListener('click', () => {
     confirmButton = initializeDifficultySelect()
     confirmButton.addEventListener('click', () => {
@@ -215,9 +220,11 @@ startBtn.addEventListener('click', () => {
     })
     startBtn.innerHTML = ''
 })
+
 getStatsBtn.addEventListener('click', () => {
     showStats(winRate, avgDifficulty, avgGuess)
     
+
 })
     </script>
     <!-- <script src="test/apptest.js"></script> -->
@@ -294,3 +301,4 @@ describe('Colours', function(){
         assert.isString(generateProgressSymbols(4, 4))
     })
 })
+
