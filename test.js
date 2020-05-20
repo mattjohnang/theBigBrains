@@ -43,9 +43,9 @@ describe("Users", () => {
 
     describe("functions in UserController", () => {
 
-        it("Register", (done) => {
+        it("Register.ejs", (done) => {
             chai.request(app)
-            .get(`/User/Register.ejs`)
+            .get(`/User/Register`)
             .end((err, res) => {
                 res.should.have.status(200);
                 // console.log(res.body)
@@ -139,13 +139,15 @@ describe("Users", () => {
 
 //         it("Logout", (done) => {
 //             chai.request(app)
-//             .get(`/User/Logout.ejs`)
+//             .get(`/User/Logout`)
 //             .end((err, res) => {
 //                 res.should.have.status(200);
 
 //                 done();
 
 //             });
+
+
 
 //         });
 
@@ -176,20 +178,16 @@ const dom = new JSDOM(`<!DOCTYPE html>
 <div id='outputField'></div>
     <div id='colorChangeTest'>
         <ul id='colorButtonField'>
-
         </ul>
     </div>
     <div id="btn-start">
         <button type="button">Start</button>
     </div>
-
 </body>
     <footer>
         <button id="btn-getstats">Get Stats</button>
         <a href="statspage.html"><button id="statsWebPage">Get Stats (webpage)</button></a>
-
         <div id="statsMenu">
-
         </div>
         
         <div id="btn-hidestats"></div>
@@ -210,8 +208,6 @@ window.localStorage["avgGuess"] = avgGuess
     colorShift(buttonToChange)
     }
 })
-
-
 startBtn.addEventListener('click', () => {
     confirmButton = initializeDifficultySelect()
     confirmButton.addEventListener('click', () => {
@@ -219,11 +215,9 @@ startBtn.addEventListener('click', () => {
     })
     startBtn.innerHTML = ''
 })
-
 getStatsBtn.addEventListener('click', () => {
     showStats(winRate, avgDifficulty, avgGuess)
     
-
 })
     </script>
     <!-- <script src="test/apptest.js"></script> -->
