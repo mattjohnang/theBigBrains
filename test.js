@@ -241,8 +241,8 @@ colorTestField = dom.window.document.querySelector("#colorButtonField")
 startBtn = dom.window.document.querySelector('#btn-start')
 getStatsBtn = dom.window.document.querySelector("#btn-getstats")
 buttonInUse = dom.window.document.querySelector(`#button1`)
-const jsdomAlert = window.alert;
-jsdomAlert = () => {};
+// const jsdomAlert = window.alert;
+window.alert = () => {}
 // console.log(colorTestField)
 const generateColorCode = require('./Views/Home/colours.js').generateColorCode
 const colorShift = require('./Views/Home/colours.js').colorShift
