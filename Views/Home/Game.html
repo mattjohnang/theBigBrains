@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,27 +20,28 @@
 </body>
     <footer>
         <button id="btn-getstats">Get Stats</button>
-        <!-- <a href="statspage.html"><button id="statsWebPage">Get Stats (webpage)</button></a> -->
 
         <div id="statsMenu">
 
         </div>
         
         <div id="btn-hidestats"></div>
+        <div id="scoreboard">
+            
+          <div>
+              <h1>Score Board</h1>
+              <ul id="total"></ul>
+          <div>
+        </div>
     </footer>
     <script src= "colours.js" >
         
+        
     </script>
     <script>
-        window.localStorage["winRate"] = winRate
-        window.localStorage["avgDifficulty"] = avgDifficulty
-        window.localStorage["avgGuess"] = avgGuess
         colorTestField.addEventListener('click', (e) => {
-    // console.log(e.target)
-    // console.log(e.target.className)
     if (e.target.className == 'button'){
     buttonToChange = e.target.id
-    // console.log(buttonToChange)
     colorShift(buttonToChange)
     
     }
@@ -51,6 +51,7 @@
 startBtn.addEventListener('click', () => {
     confirmButton = initializeDifficultySelect()
     confirmButton.addEventListener('click', () => {
+        getPlayerName()
         getNumberOfButtons()
     })
     startBtn.innerHTML = ''
@@ -62,5 +63,4 @@ getStatsBtn.addEventListener('click', () => {
 
 
     </script>
-    <!-- <script src="test/apptest.js"></script> -->
 </html>
