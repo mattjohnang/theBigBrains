@@ -166,6 +166,7 @@ const assert = require('chai').assert
 require('jsdom-global')()
 require('jsdom')
 const jsdom = require('jsdom')
+
 const { JSDOM } = jsdom
 const dom = new JSDOM(`<!DOCTYPE html>
 <html lang="en">
@@ -242,7 +243,8 @@ colorTestField = dom.window.document.querySelector("#colorButtonField")
 startBtn = dom.window.document.querySelector('#btn-start')
 getStatsBtn = dom.window.document.querySelector("#btn-getstats")
 buttonInUse = dom.window.document.querySelector(`#button1`)
-window.alert = () => {}
+const jsdomAlert = window.alert;
+window.alert = () => {};
 // console.log(colorTestField)
 const generateColorCode = require('./Views/Home/colours.js').generateColorCode
 const colorShift = require('./Views/Home/colours.js').colorShift
