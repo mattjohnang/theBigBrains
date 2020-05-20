@@ -11,16 +11,16 @@ chai.should();
 describe("Home", () => {
 
     describe("functions in HomeController", () => {
-//         it("Index", (done) =>{ 
-//             chai.request(app)
-//             .get('/')
-//             .end((err,res) =>{
-//                 res.should.have.status(200);
+        // it("Index", (done) =>{ 
+        //     chai.request(app)
+        //     .get('/')
+        //     .end((err,res) =>{
+        //         res.should.have.status(200);
                 
 
-//                 done();
-//             });
-//         });
+        //         done();
+        //     });
+        // });
 
         it("Game", (done) =>{ 
             chai.request(app)
@@ -45,7 +45,7 @@ describe("Users", () => {
 
         it("Register", (done) => {
             chai.request(app)
-            .get(`/User/Register`)
+            .get(`/User/Register.ejs`)
             .end((err, res) => {
                 res.should.have.status(200);
                 // console.log(res.body)
@@ -84,7 +84,7 @@ describe("Users", () => {
 
         it("test secure area username is shown", (done) => {
             chai.request(app)
-            .get(`/User/SecureArea`)
+            .get(`/User/SecureArea.ejs`)
             .send({'reqInfo':{'username': 'bob', 'email': 'emia@wer.com', 'password': 'asdfasdfDdff'}})
             .end((err, res) => {
                 res.should.have.status(200);
@@ -101,7 +101,7 @@ describe("Users", () => {
 
         it("login", (done) => {
             chai.request(app)
-            .get(`/User/Login`)
+            .get(`/User/Login.ejs`)
             .end((err, res) => {
                 res.should.have.status(200);
 
@@ -139,7 +139,7 @@ describe("Users", () => {
 
         it("Logout", (done) => {
             chai.request(app)
-            .get(`/User/Logout`)
+            .get(`/User/Logout.ejs`)
             .end((err, res) => {
                 res.should.have.status(200);
 
