@@ -267,23 +267,31 @@ describe('Colours', function(){
     })
 
     it('app should return a boolean value', function(){
+        guessCount = 0
+        // colorTestField = dom.window.document.querySelector("#colorButtonField")
+        // startBtn = dom.window.document.querySelector('#btn-start')
+        outputField = dom.window.document.querySelector('#outputField')
+        // generateProgressSymbols(4, 4)
+        progressSymbols = dom.window.document.querySelector(`#outputField`)
         assert.isBoolean(endGame(true))
     })
     it('app should return a true boolean', function() {
         guessCount = 0
-        colorTestField.innerHTML += '<button class="button" id="button1" style="background-color: rgb(204, 0, 0);"></button><button class="button" id="button2" style="background-color: rgb(204, 0, 0);"></button><button class="button" id="button3" style="background-color: rgb(204, 0, 0);"></button><button class="button" id="button4" style="background-color: rgb(204, 0, 0);"></button><button id="check">Check Answer</button>'
-        printInput(colorTestField)
-        generateProgressSymbols(4, 4)
-        assert.equal(checkAnswers(['rgb(204, 0, 0)', 'rgb(204, 0, 0)', 'rgb(204, 0, 0)', 'rgb(204, 0, 0)'], colorTestField, 4), true)
+        colorTestField.innerHTML += '<button class="button" id="button1" style="background-color: rgb(255, 255, 255);"></button><button class="button" id="button2" style="background-color: rgb(255, 255, 255);"></button><button class="button" id="button3" style="background-color: rgb(255, 255, 255);"></button><button class="button" id="button4" style="background-color: rgb(255, 255, 255);"></button><button id="check">Check Answer</button>'
+        assert.equal(checkAnswers(['rgb(255, 255, 255)', 'rgb(255, 255, 255)', 'rgb(255, 255, 255)', 'rgb(255, 255, 255)'], colorTestField, 4), true)
     })
     it('app should return a false boolean', function() {
-        assert.equal(checkAnswers(['rgb(0, 0, 0)', 'rgb(0, 0, 0)'], ['rgb(204, 0, 0)', 'rgb(204, 0, 0)'], 2), false)
+        guessCount = 9
+        colorTestField.innerHTML += '<button class="button" id="button1" style="background-color: rgb(255, 255, 255);"></button><button class="button" id="button2" style="background-color: rgbrgb(255, 255, 255);"></button><button class="button" id="button3" style="background-color: rgb(255, 255, 255);"></button><button class="button" id="button4" style="background-color: rgb(255, 255, 255);"></button><button id="check">Check Answer</button>'
+        printInput(colorTestField)
+        generateProgressSymbols(0, 0)
+        assert.equal(checkAnswers(['rgb(0, 0, 0)', 'rgb(0, 0, 0)', 'rgb(0, 0, 0)', 'rgb(0, 0, 0)'], colorTestField, 4), false)
     })
     it('app should return a string value containing <button id="check">Check Answer</button>', function() {
         assert.equal(createCheckButton(), `<button id="check">Check Answer</button>`)
     })
     it('app should return a string containing #button1', function() {
-        assert.equal(createButtons(1), '<button class="button" id="button1" style="background-color: rgb(204, 0, 0);"></button>')
+        assert.equal(createButtons(1), '<button class="button" id="button1" style="background-color: rgb(255, 255, 255);"></button>')
     })
     it('app should return a string containing <button id="buttonCount">Confirm</button>', function() {
         assert.equal(initializeDifficultySelect(), '<button id="buttonCount">Confirm</button>')
@@ -296,10 +304,19 @@ describe('Colours', function(){
         assert.equal(calcStats(1, 1, [4, 8], [2, 4]), `[50, 6, 3]`)
     })
     it('app should return a string containing the button input', function() {
-        assert.isString(printInput())
+        colorTestField.innerHTML += '<button class="button" id="button1" style="background-color: rgb(255, 255, 255);"></button><button class="button" id="button2" style="background-color: rgbrgb(255, 255, 255);"></button><button class="button" id="button3" style="background-color: rgb(255, 255, 255);"></button><button class="button" id="button4" style="background-color: rgb(255, 255, 255);"></button><button id="check">Check Answer</button>'
+        assert.isString(printInput(colorTestField))
     })
     it('app should return a string containing buttons', function() {
         assert.isString(generateProgressSymbols(4, 4))
+    })
+    it('app should get a string named "Enter a player name"', function() {
+        initializeDifficultySelect()
+        assert.equal(getPlayerName(), "Enter a player name")
+    })
+    it('app should return the number 40', function() {
+        assert.isNumber(calcScore(4, 10))
+        assert.equal(calcScore(4, 10), 40)
     })
 })
 
