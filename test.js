@@ -253,11 +253,11 @@ describe('Colours', function(){
         progressSymbols = dom.window.document.querySelector(`#outputField`)
         assert.isBoolean(endGame(true))
     })
-//     it('app should return a true boolean', function() {
-//         guessCount = 0
-//         colorTestField.innerHTML += '<button class="button" id="button1" style="background-color: rgb(255, 255, 255);"></button><button class="button" id="button2" style="background-color: rgb(255, 255, 255);"></button><button class="button" id="button3" style="background-color: rgb(255, 255, 255);"></button><button class="button" id="button4" style="background-color: rgb(255, 255, 255);"></button><button id="check">Check Answer</button>'
-//         assert.equal(checkAnswers(['rgb(255, 255, 255)', 'rgb(255, 255, 255)', 'rgb(255, 255, 255)', 'rgb(255, 255, 255)'], colorTestField, 4), true)
-//     })
+    it('app should return a true boolean', function() {
+        guessCount = 0
+        colorTestField.innerHTML += '<button class="button" id="button1" style="background-color: rgb(255, 255, 255);"></button><button class="button" id="button2" style="background-color: rgb(255, 255, 255);"></button><button class="button" id="button3" style="background-color: rgb(255, 255, 255);"></button><button class="button" id="button4" style="background-color: rgb(255, 255, 255);"></button><button id="check">Check Answer</button>'
+        assert.equal(checkAnswers(['rgb(255, 255, 255)', 'rgb(255, 255, 255)', 'rgb(255, 255, 255)', 'rgb(255, 255, 255)'], colorTestField, 4), true)
+    })
     it('app should return a false boolean', function() {
         guessCount = 9
         colorTestField.innerHTML += '<button class="button" id="button1" style="background-color: rgb(255, 255, 255);"></button><button class="button" id="button2" style="background-color: rgbrgb(255, 255, 255);"></button><button class="button" id="button3" style="background-color: rgb(255, 255, 255);"></button><button class="button" id="button4" style="background-color: rgb(255, 255, 255);"></button><button id="check">Check Answer</button>'
