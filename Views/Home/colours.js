@@ -290,7 +290,7 @@ module.exports = {
         userInput = document.querySelector('textarea').value
         if (isNaN(userInput)) {
             try{
-            // alert("invalid parameter, please input a number")
+            console.log("invalid parameter, please input a number")
         }
         catch {
             console.log('cannot alert in node')
@@ -299,7 +299,7 @@ module.exports = {
         }
         else {
             if (userInput < 4 || userInput > 8) {
-                // alert('please input a number between 4 and 8')
+                console.log('please input a number between 4 and 8')
                 return undefined
             }
             else {
@@ -488,7 +488,7 @@ module.exports = {
     endGame:function (winState) {
         if (winState == true){
             try{
-            // alert('You Win!')
+            console.log('You Win!')
             }
             catch {
                 console.log('window alerts do not exist in node')
@@ -498,7 +498,7 @@ module.exports = {
         }
         else {
             try {
-            // alert('You Lose!')
+            console.log('You Lose!')
         }
         catch {
             console.log('window alerts do not exist in node')
