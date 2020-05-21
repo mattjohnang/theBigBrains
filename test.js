@@ -310,13 +310,5 @@ describe('Colours', function(){
     it('app should return a string containing buttons', function() {
         assert.isString(generateProgressSymbols(4, 4))
     })
-    it('app should get a string named "Enter a player name"', function() {
-        initializeDifficultySelect()
-        assert.equal(getPlayerName(), "Enter a player name")
-    })
-    it('app should return the number 40', function() {
-        assert.isNumber(calcScore(4, 10))
-        assert.equal(calcScore(4, 10), 40)
-    })
 })
 
