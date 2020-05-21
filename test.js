@@ -43,7 +43,7 @@ describe("Users", () => {
 
     describe("functions in UserController", () => {
 
-        it("Register.ejs", (done) => {
+        it("Register", (done) => {
             chai.request(app)
             .get(`/User/Register.ejs`)
             .end((err, res) => {
@@ -57,6 +57,30 @@ describe("Users", () => {
 
 
         });
+
+        // it("RegisterUser", (done)=> {
+        //     chai.request(app)
+        //     .post(`/User/RegisterUser`)
+        //     .send({'username': 'bob', 'email': 'emia@wer.com', 'password': 'asdfasdfDdff'})
+        //     .end((err, res) => {
+        //         // console.log("Showing output.")
+        //         console.log(JSON.stringify(res.body));
+
+        //         let username = res.body.INFO.username;
+        //         let email    = res.body.INFO.email;
+
+        //         username.should.equal('bob');
+        //         email.should.equal('emia@wer.com');
+        //         res.body.should.be.a('object')
+        //         res.should.have.status(200);
+        //         // console.log(err, "THIS IS ERROR")
+
+
+
+        //         done();
+        //     });
+
+        // });
 
         it("test secure area username is shown", (done) => {
             chai.request(app)
@@ -113,19 +137,19 @@ describe("Users", () => {
 
         // });
 
-//         it("Logout", (done) => {
-//             chai.request(app)
-//             .get(`/User/Logout`)
-//             .end((err, res) => {
-//                 res.should.have.status(200);
+        it("Logout", (done) => {
+            chai.request(app)
+            .get(`/User/Logout.ejs`)
+            .end((err, res) => {
+                res.should.have.status(200);
 
-//                 done();
+                done();
 
-//             });
+            });
 
 
 
-//         });
+        });
 
 
 
@@ -134,7 +158,6 @@ describe("Users", () => {
 
 
 });
-
 
 const assert = require('chai').assert
 require('jsdom-global')()
