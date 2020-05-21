@@ -43,7 +43,7 @@ describe("Users", () => {
 
     describe("functions in UserController", () => {
 
-        it("Register", (done) => {
+        it("Register.ejs", (done) => {
             chai.request(app)
             .get(`/User/Register.ejs`)
             .end((err, res) => {
@@ -137,11 +137,28 @@ describe("Users", () => {
 
         // });
 
-      
+//         it("Logout", (done) => {
+//             chai.request(app)
+//             .get(`/User/Logout`)
+//             .end((err, res) => {
+//                 res.should.have.status(200);
+
+//                 done();
+
+//             });
+
+
+
+//         });
+
+
+
+
     });
 
 
 });
+
 
 const assert = require('chai').assert
 require('jsdom-global')()
@@ -217,11 +234,16 @@ getStatsBtn.addEventListener('click', () => {
 const { window } = dom;
 global.window = window
 global.document = window.document
+// console.log(dom.serialize())
+// console.log(document)
+// console.log(dom.window.document.querySelector("#colorButtonField").outerHTML)
 colorTestField = dom.window.document.querySelector("#colorButtonField")
 startBtn = dom.window.document.querySelector('#btn-start')
 getStatsBtn = dom.window.document.querySelector("#btn-getstats")
 buttonInUse = dom.window.document.querySelector(`#button1`)
-
+// const jsdomAlert = window.alert;
+window.alert = () => {}
+// console.log(colorTestField)
 const generateColorCode = require('./Views/Home/colours.js').generateColorCode
 const colorShift = require('./Views/Home/colours.js').colorShift
 const endGame = require('./Views/Home/colours.js').endGame
@@ -256,7 +278,7 @@ describe('Colours', function(){
     it('app should return a true boolean', function() {
         guessCount = 0
         colorTestField.innerHTML += '<button class="button" id="button1" style="background-color: rgb(255, 255, 255);"></button><button class="button" id="button2" style="background-color: rgb(255, 255, 255);"></button><button class="button" id="button3" style="background-color: rgb(255, 255, 255);"></button><button class="button" id="button4" style="background-color: rgb(255, 255, 255);"></button><button id="check">Check Answer</button>'
-//         assert.equal(checkAnswers(['rgb(255, 255, 255)', 'rgb(255, 255, 255)', 'rgb(255, 255, 255)', 'rgb(255, 255, 255)'], colorTestField, 4), true)
+        assert.equal(checkAnswers(['rgb(255, 255, 255)', 'rgb(255, 255, 255)', 'rgb(255, 255, 255)', 'rgb(255, 255, 255)'], colorTestField, 4), true)
     })
     it('app should return a false boolean', function() {
         guessCount = 9
@@ -288,4 +310,13 @@ describe('Colours', function(){
     it('app should return a string containing buttons', function() {
         assert.isString(generateProgressSymbols(4, 4))
     })
+    it('app should get a string named "Enter a player name"', function() {
+        initializeDifficultySelect()
+        assert.equal(getPlayerName(), "Enter a player name")
+    })
+    it('app should return the number 40', function() {
+        assert.isNumber(calcScore(4, 10))
+        assert.equal(calcScore(4, 10), 40)
+    })
 })
+

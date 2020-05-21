@@ -39,7 +39,7 @@
   position: absolute;
   width: 450px;
   top: 42%;
-  left: 31%;
+  left: 51%;
   padding: 10px;
   box-sizing: border-box;
   background-color: #abb2b9;
@@ -65,7 +65,7 @@
 #scoreboard #btn {
   position: absolute;
   top: 22.5%;
-  left: 43.7%;
+  left: 50.7%;
   background-color: crimson;
 }
 #scoreboard h1 {

@@ -23,15 +23,19 @@ let onlyCorrectColor = 0
 let wrongAnswers = 0
 let correctPosition = 0
 let correctColor = 0
+let playerName = ''
+let gameScore = 0
 
 function initializeDifficultySelect() {
-    colorTestField.innerHTML = '<textarea>How many buttons?</textarea><button id="buttonCount">Confirm</button>'
+    //Opens the textbox that allows you to enter a difficulty level
+    colorTestField.innerHTML = '<textarea id="difficultySelect">How many buttons?</textarea><textarea id="playerName">Enter a player name</textarea><button id="buttonCount">Confirm</button>'
     confirmButton = document.querySelector('#buttonCount')
     return confirmButton
 }
 
 function getNumberOfButtons() {
-    userInput = document.querySelector('textarea').value
+    //Gets the input from the textbox and sends it to functions to generate the playing field and random code
+    userInput = document.querySelector('#difficultySelect').value
     if (isNaN(userInput)) {
         alert("invalid parameter, please input a number")
     }
@@ -51,6 +55,7 @@ function getNumberOfButtons() {
 }
 
 function createCheckButton() {
+    //Creates a button to check for answers
     colorTestField.innerHTML += '<button id="check">Check Answer</button>'
     checkButton = document.querySelector('#check')
     checkButton.addEventListener('click', () => {
@@ -61,27 +66,25 @@ function createCheckButton() {
 }
 
 function printInput(colorTestField) {
+    //Prints the input sent from the game board
     const outputField = document.querySelector('#outputField')
     buttons = colorTestField.querySelectorAll('.button')
     outputField.innerHTML += `<ul id='output${guessCount}'></ul>`
     outputEntry = outputField.querySelector(`#output${guessCount}`)
-    // console.log(buttons)
     
     for (let i in buttons) {
-        // console.log(buttons[i].outerHTML)
-        // console.log(typeof buttons[i].outerHTML)
         if (buttons[i].outerHTML != undefined){
         outputEntry.innerHTML += buttons[i].outerHTML
         }
         
     }
-    // console.log(outputField.innerHTML)
     
     return outputField.innerHTML
 }
 
 
 function createButtons(numberOfButtons) {
+    //Generates the buttons from a given number
     for (let i = 0; i < numberOfButtons; i++) {
         colorTestField.innerHTML += `<button class='button' id='button${i + 1}'></button>`
         let newButton = document.querySelector(`#button${i + 1}`)
@@ -90,6 +93,7 @@ function createButtons(numberOfButtons) {
 }
 
 function colorShift(buttonToChange) {
+    //Changes the color of a button when clicked
     buttonInUse = colorTestField.querySelector(`#${buttonToChange}`)
     oldColor = colorList.indexOf(buttonInUse.style.backgroundColor)
     if (oldColor + 1 >= colorList.length) {
@@ -101,6 +105,7 @@ function colorShift(buttonToChange) {
 }
 
 function generateColorCode(numberOfButtons) {
+    //Generates a random code of given length
     for (let i = 0; i < numberOfButtons; i++) {
         codeNumber = Math.floor(Math.random()*8)
         codeEntry = colorList[codeNumber]
@@ -112,10 +117,10 @@ function generateColorCode(numberOfButtons) {
 }
 
 function checkAnswers(colorCode, colorTestField) {
+    //Checks the answers from the input compared to the randomized code
     correctColor = 0
     correctPosition = 0
     let correctColors = {}
-    console.log(correctColor, correctPosition)
     buttonList = colorTestField.querySelectorAll('.button')
     for (let i = 0; i < buttonList.length; i++) {
         buttonColor = buttonList[i].style.backgroundColor
@@ -138,7 +143,6 @@ function checkAnswers(colorCode, colorTestField) {
     }
     
     printInput(colorTestField)
-    console.log(correctColor, correctPosition)
     generateProgressSymbols(correctColor, correctPosition)
     guessCount += 1
     
@@ -160,6 +164,7 @@ function checkAnswers(colorCode, colorTestField) {
 }
 
 function generateProgressSymbols(correctColor, correctPosition) {
+    //Displays information given by the answer checker
     onlyCorrectColor = 0
     wrongAnswers = 0
     outputEntry = document.querySelector(`#output${guessCount}`)
@@ -169,7 +174,6 @@ function generateProgressSymbols(correctColor, correctPosition) {
     progressSymbols.style.borderLeft = "solid 5px black"
     onlyCorrectColor = correctColor - correctPosition
     wrongAnswers = numberOfButtons - correctColor
-    console.log(correctPosition, onlyCorrectColor, wrongAnswers)
     for (let i = 0; i < correctPosition; i++){
         progressSymbols.innerHTML += `<button class="rightPosition"></button>`
     }
@@ -186,6 +190,7 @@ function generateProgressSymbols(correctColor, correctPosition) {
 }
 
 function endGame(winState) {
+    //Ends the game if won or lost
     if (winState == true){
         try{
         alert('You Win!')
@@ -211,20 +216,24 @@ function endGame(winState) {
     startBtn.innerHTML = '<button>Start</button>'
     
     colorCode = []
-    guessCount = 0
+    
     for (let key in colorDict) {
         colorDict[key] = 0
     }
     calcStats(winCount, loseCount, difficultyList, guessPerWin)
     progressSymbols.innerHTML = ''
+
+    guessCount = 0
 }
 
 
 function testMocha() {
+    //(unused) tests mocha functionality
     return 'Hello'
 }
 
 function calcStats(winCount, loseCount, difficultyList, guessPerWin) {
+    //Calculates stats
     totalDifficulty = 0
     totalGuess = 0
     if (winCount + loseCount == 0){
@@ -252,10 +261,15 @@ function calcStats(winCount, loseCount, difficultyList, guessPerWin) {
         avgGuess = 0
     }
     stats = `[${winRate}, ${avgDifficulty}, ${avgGuess}]`
+    calcScore(numberOfButtons, guessCount)
+    addmovie()
+    getpost()
+    
     return stats
 }
 
 function showStats(winRate, avgDifficulty, avgGuess) {
+    //Displays the stats
     
     statsMenu.innerHTML = `Win Rate: ${winRate}%<br> Average Difficulty: ${avgDifficulty}<br> Average Guesses/Win: ${avgGuess}`
     hideBtn = document.querySelector('#btn-hidestats')
@@ -268,10 +282,52 @@ function showStats(winRate, avgDifficulty, avgGuess) {
 }
 
 function hideStats() {
+    //Removes the stats display
     statsMenu.innerHTML = ''
     hideBtn.innerHTML = ''
     return statsMenu.innerHTML
 }
+
+function getPlayerName() {
+    userNameInput = document.querySelector('#playerName').value
+    playerName = userNameInput
+    return playerName
+
+}
+
+function calcScore(numberOfButtons, guessCount) {
+    let difficulty = parseInt(numberOfButtons)
+    let turns = parseInt(guessCount)
+    let initScore = 100
+        gameScore = ((initScore * difficulty) / turns)
+        guessCount = 0
+        return gameScore
+}
+
+const gameScores = [];
+
+
+function addmovie() {
+  let score = {
+    //   id : Date.now(),
+    name: playerName,
+    score: gameScore,
+  };
+  gameScores.push(score);
+};
+
+
+
+function getpost() {
+  setTimeout(() => {
+    let output = "";
+    gameScores.forEach((post) => {
+      output += `<li>${post.name}: ${post.score} <li>`;
+    });
+    document.getElementById("total").innerHTML = output;
+  }, 100);
+}
+
 
 module.exports = {
     
@@ -281,7 +337,7 @@ module.exports = {
     },
 
     initializeDifficultySelect:function() {
-        colorTestField.innerHTML = '<textarea>How many buttons?</textarea><button id="buttonCount">Confirm</button>'
+        colorTestField.innerHTML = '<textarea id="difficultySelect">How many buttons?</textarea><textarea id="playerName">Enter a player name</textarea><button id="buttonCount">Confirm</button>'
         confirmButton = document.querySelector('#buttonCount')
         return `${confirmButton.outerHTML}`
     },
@@ -290,7 +346,7 @@ module.exports = {
         userInput = document.querySelector('textarea').value
         if (isNaN(userInput)) {
             try{
-            console.log("invalid parameter, please input a number")
+            alert("invalid parameter, please input a number")
         }
         catch {
             console.log('cannot alert in node')
@@ -299,7 +355,7 @@ module.exports = {
         }
         else {
             if (userInput < 4 || userInput > 8) {
-                console.log('please input a number between 4 and 8')
+                alert('please input a number between 4 and 8')
                 return undefined
             }
             else {
@@ -488,7 +544,7 @@ module.exports = {
     endGame:function (winState) {
         if (winState == true){
             try{
-            console.log('You Win!')
+            alert('You Win!')
             }
             catch {
                 console.log('window alerts do not exist in node')
@@ -498,7 +554,7 @@ module.exports = {
         }
         else {
             try {
-            console.log('You Lose!')
+            alert('You Lose!')
         }
         catch {
             console.log('window alerts do not exist in node')
@@ -520,5 +576,21 @@ module.exports = {
     
         return winState
         
+    },
+
+    getPlayerName:function() {
+        userNameInput = document.querySelector('#playerName').value
+        playerName = userNameInput
+        return playerName
+    
+    },
+    
+    calcScore:function(numberOfButtons, guessCount) {
+        let difficulty = parseInt(numberOfButtons)
+        let turns = parseInt(guessCount)
+        let initScore = 100
+            gameScore = ((initScore * difficulty) / turns)
+            guessCount = 0
+            return gameScore
     }
 }
